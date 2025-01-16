@@ -6,7 +6,7 @@ import os
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
-RULE_NAME = 'createdFromLambdaAIMU'  # Nombre de la regla que debe coincidir
+RULE_NAME = 'createdFromLambdaAIMU'
 TRUSTED_ADVISOR_CHECK_ID = "c1cj39rr6v"  # ID del check de Trusted Advisor para "Multipart Upload Life Cycle Rule"
 
 def get_accounts_from_env():
@@ -50,7 +50,7 @@ def apply_lifecycle_rule(bucket_name, s3_client):
             {
                 'ID': RULE_NAME,
                 'Status': 'Enabled',
-                'Filter': {'Prefix': ''},  # Filtro explícito para aplicar a todo el bucket
+                'Filter': {'Prefix': ''},
                 'AbortIncompleteMultipartUpload': {
                     'DaysAfterInitiation': 7
                 }
@@ -106,26 +106,35 @@ def assume_role(account_id):
         logger.error(f"Error al asumir el rol en la cuenta {account_id}: {e}", exc_info=True)
         return None
 
-def process_buckets_in_account(account_id, delete_rule, s3_client):
-    """Procesa los buckets alertados en una cuenta (aplicando o eliminando reglas de ciclo de vida)."""
+def process_buckets_in_account(account_id, delete_rule, credentials):
+    """Procesa los buckets alertados en una cuenta."""
+    s3_client = boto3.client(
+        's3',
+        aws_access_key_id=credentials['AccessKeyId'],
+        aws_secret_access_key=credentials['SecretAccessKey'],
+        aws_session_token=credentials['SessionToken']
+    )
+    support_client = boto3.client(
+        'support',
+        aws_access_key_id=credentials['AccessKeyId'],
+        aws_secret_access_key=credentials['SecretAccessKey'],
+        aws_session_token=credentials['SessionToken']
+    )
+
     if delete_rule:
-        # Si es modo eliminación, escanear todos los buckets
         logger.info(f"Eliminando reglas '{RULE_NAME}' en todos los buckets de la cuenta {account_id}")
         buckets = s3_client.list_buckets().get('Buckets', [])
         for bucket in buckets:
             bucket_name = bucket['Name']
-            logger.info(f"Eliminando regla '{RULE_NAME}' del bucket: {bucket_name}")
             delete_lifecycle_rule(bucket_name, s3_client)
     else:
-        # Si no es modo eliminación, solo procesar los buckets alertados
-        alerted_buckets = get_alerted_buckets(boto3.client('support'))
+        alerted_buckets = get_alerted_buckets(support_client)
 
         if not alerted_buckets:
             logger.info(f"No hay buckets alertados en Trusted Advisor para la cuenta {account_id}.")
             return
 
         for bucket_name in alerted_buckets:
-            logger.info(f"Aplicando regla '{RULE_NAME}' al bucket: {bucket_name}")
             apply_lifecycle_rule(bucket_name, s3_client)
 
 def lambda_handler(event, context):
@@ -143,11 +152,4 @@ def lambda_handler(event, context):
         if not credentials:
             continue
 
-        s3_client = boto3.client(
-            's3',
-            aws_access_key_id=credentials['AccessKeyId'],
-            aws_secret_access_key=credentials['SecretAccessKey'],
-            aws_session_token=credentials['SessionToken']
-        )
-
-        process_buckets_in_account(account_id, delete_rule, s3_client)
+        process_buckets_in_account(account_id, delete_rule, credentials)
