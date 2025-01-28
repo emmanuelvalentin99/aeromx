@@ -1,0 +1,13 @@
+Area: [Cargo,Mantenimiento,Operaciones,Aeropuertos,Seguridad-aerea,Revenie-accounting,Call-center,DataAnalytics,Estrategia-de-ingresos,Pricing,Svoc,Voc,Revenue-management,Marketing]
+Environment: [dev,qa,prod]
+Vertical: [comm,cust,corp,cha-beth,svoe,oper,ia,de]
+ProjectName: {valor variable}
+map-migrated: d-server-03cd3bbblu0msp
+Ambiente: [PD,Q,DE]
+AreaResponsable: DA-AI
+CentroDeCosto: 121001
+DuenoDeLaCuenta: amsoportedatalake@aeromexico.com
+Proyecto: Datalake
+Aplicacion: Datalake
+ImpactoANegocio: [Tier1,Tier2,Tier3,Tier4]
+lcf: [IF,DP,NA]

@@ -1,0 +1,13 @@
+Area: DataAnalytics
+Environment: prod
+Vertical: de
+ProjectName: dlk-ta-apply-lcr-s3
+map-migrated: d-server-03cd3bbblu0msp
+Ambiente: PD
+AreaResponsable: DA-AI
+CentroDeCosto: 121001
+DuenoDeLaCuenta: amsoportedatalake@aeromexico.com
+Proyecto: Datalake
+Aplicacion: Datalake
+ImpactoANegocio: Tier2
+lcf: NA
