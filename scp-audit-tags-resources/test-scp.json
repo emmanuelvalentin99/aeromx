@@ -1,0 +1,70 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyCreateIfTagsAreMissingOrIncorrect",
+            "Effect": "Deny",
+            "Action": [
+                "ec2:RunInstances",
+                "rds:CreateDBInstance",
+                "lambda:CreateFunction",
+                "sns:CreateTopic",
+                "dynamodb:CreateTable",
+                "eks:CreateCluster",
+                "ec2:CreateSecurityGroup",
+                "ec2:CreateVolume",
+                "ec2:CreateSnapshot",
+                "ec2:CreateImage",
+                "eks:CreateFargateProfile",
+                "cloudformation:CreateStack",
+                "cloudformation:UpdateStack",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Area": true,
+                    "aws:RequestTag/Environment": true,
+                    "aws:RequestTag/Vertical": true,
+                    "aws:RequestTag/ProjectName": true,
+                    "aws:RequestTag/map-migrated": true,
+                    "aws:RequestTag/Ambiente": true,
+                    "aws:RequestTag/AreaResponsable": true,
+                    "aws:RequestTag/CentroDeCosto": true,
+                    "aws:RequestTag/DuenoDeLaCuenta": true,
+                    "aws:RequestTag/Proyecto": true,
+                    "aws:RequestTag/Aplicacion": true,
+                    "aws:RequestTag/ImpactoANegocio": true,
+                    "aws:RequestTag/lcf": true
+                },
+                "StringEqualsIfExists": {
+                    "aws:RequestTag/map-migrated": "d-server-03cd3bbblu0msp",
+                    "aws:RequestTag/AreaResponsable": "DA-AI",
+                    "aws:RequestTag/CentroDeCosto": "121001",
+                    "aws:RequestTag/DuenoDeLaCuenta": "amsoportedatalake@aeromexico.com",
+                    "aws:RequestTag/Proyecto": "Datalake",
+                    "aws:RequestTag/Aplicacion": "Datalake"
+                },
+                "StringLikeIfExists": {
+                    "aws:RequestTag/ProjectName": "*"
+                },
+                "ForAllValues:StringEqualsIfExists": {
+                    "aws:RequestTag/Area": [
+                        "Cargo", "Mantenimiento", "Operaciones", "Aeropuertos", "Seguridad-aerea", "Revenie-accounting",
+                        "Call-center", "DataAnalytics", "Estrategia-de-ingresos", "Pricing", "Svoc", "Voc", "Revenue-management", "Marketing"
+                    ],
+                    "aws:RequestTag/Environment": [
+                        "dev", "qa", "prod"
+                    ],
+                    "aws:RequestTag/Vertical": [
+                        "comm", "cust", "corp", "cha-beth", "svoe", "oper", "ia", "de"
+                    ],
+                    "aws:RequestTag/Ambiente": [
+                        "PD", "Q", "DE"
+                    ]
+                }
+            }
+        }  
+    ]
+}

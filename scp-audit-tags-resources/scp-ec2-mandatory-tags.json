@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyEC2ResourcesWithoutEnvironmentTag",
+        "Effect": "Deny",
+        "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
+        "Resource": [
+          "arn:aws:ec2:*:*:instance/*",
+          "arn:aws:ec2:*:*:snapshot/*"
+        ],
+        "Condition": {"Null": {"aws:RequestTag/Environment": "true"}}
+      },
+      {
+        "Sid": "DenyEC2ResourcesWithInvalidEnvironmentValue",
+        "Effect": "Deny",
+        "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
+        "Resource": [
+          "arn:aws:ec2:*:*:instance/*",
+          "arn:aws:ec2:*:*:snapshot/*"
+        ],
+        "Condition": {"StringNotEqualsIfExists": {"aws:RequestTag/Environment": ["Production", "Development", "Testing"]}}
+      }
+   
+    ]
+  }

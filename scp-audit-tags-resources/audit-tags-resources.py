@@ -1,161 +1,121 @@
 import boto3
-import json
-import os
-
-# Define las etiquetas requeridas y sus valores permitidos
-REQUIRED_TAGS = {
-    "Area": [
-        "Cargo", "Mantenimiento", "Operaciones", "Aeropuertos", "Seguridad-aerea",
-        "Revenie-accounting", "Call-center", "DataAnalytics", "Estrategia-de-ingresos",
-        "Pricing", "Svoc", "Voc", "Revenue-management", "Marketing"
-    ],
-    "Environment": ["dev", "qa", "prod"],
-    "Vertical": ["comm", "cust", "corp", "cha-beth", "svoe", "oper", "ia", "de"],
-    "Ambiente": ["PD", "Q", "DE"],
-    "ImpactoANegocio": ["Tier1", "Tier2", "Tier3", "Tier4"],
-    "lcf": ["IF", "DP", "NA"],
-    "map-migrated": ["d-server-03cd3bbblu0msp"],
-    "AreaResponsable": ["DA-AI"],
-    "CentroDeCosto": ["121001"],
-    "DuenoDeLaCuenta": ["amsoportedatalake@aeromexico.com"],
-    "Proyecto": ["Datalake"],
-    "Aplicacion": ["Datalake"]
-}
-
-# Inicializa los servicios que serán analizados
-SERVICES = ["ec2", "s3", "dynamodb", "rds", "lambda", "sns"]
-
-def assume_role(account_id):
-    """Asume un rol en otra cuenta y devuelve un cliente de sesión."""
-    sts_client = boto3.client("sts")
-    role_arn = f"arn:aws:iam::{account_id}:role/LambdaAuditRole"
-    
-    try:
-        response = sts_client.assume_role(
-            RoleArn=role_arn,
-            RoleSessionName="AuditSession"
-        )
-        credentials = response["Credentials"]
-        session = boto3.Session(
-            aws_access_key_id=credentials["AccessKeyId"],
-            aws_secret_access_key=credentials["SecretAccessKey"],
-            aws_session_token=credentials["SessionToken"]
-        )
-        return session
-    except Exception as e:
-        print(f"Error al asumir rol en la cuenta {account_id}: {str(e)}")
-        return None
-
-def lambda_handler(event, context):
-    account_ids = os.environ.get("ACCOUNT_IDS", "")
-    if not account_ids:
-        return {
-            "statusCode": 400,
-            "body": "No se encontraron cuentas en la variable de entorno ACCOUNT_IDS."
+import pandas as pd
+from botocore.exceptions import ClientError
+import time
+import openpyxl
+from io import BytesIO
+from datetime import datetime
+ 
+# Configura los servicios de AWS
+athena_client = boto3.client('athena')
+s3_client = boto3.client('s3')
+ses_client = boto3.client('ses')
+bucket_name = "tu-bucket-s3"  # S3 donde se guardarán los resultados de Athena
+output_location = f"s3://{bucket_name}/resultados/"
+ 
+# Parámetros de consulta Athena
+database_name = 'tu_base_de_datos'
+query = """
+    SELECT * FROM tu_tabla LIMIT 10;
+"""
+ 
+# Dirección de correo
+email_from = "tu_correo@dominio.com"
+email_to = "correo_destino@dominio.com"
+subject = "Resultados de consulta Athena"
+body_text = "Adjunto los resultados de la consulta Athena en formato Excel."
+ 
+def execute_athena_query():
+    # Ejecutar la consulta en Athena
+    response = athena_client.start_query_execution(
+        QueryString=query,
+        QueryExecutionContext={
+            'Database': database_name
+        },
+        ResultConfiguration={
+            'OutputLocation': output_location,
         }
-    
-    account_ids = account_ids.split(",")
-    missing_tags = []
-
-    for account_id in account_ids:
-        print(f"Analizando recursos en la cuenta {account_id}")
-        session = assume_role(account_id.strip())
-        if not session:
-            continue
-        
-        for service in SERVICES:
-            try:
-                resources = list_resources(session, service)
-                for resource in resources:
-                    tags = get_resource_tags(session, service, resource)
-                    missing = validate_tags(tags, resource, service, account_id)
-                    if missing:
-                        missing_tags.extend(missing)
-            except Exception as e:
-                print(f"Error analizando el servicio {service} en la cuenta {account_id}: {str(e)}")
-    
-    # Ordenar los resultados
-    sorted_missing_tags = sorted(missing_tags, key=lambda x: (x['AccountId'], x['Service'], x['ResourceId']))
-    
-    # Imprimir o enviar los resultados
-    print(json.dumps(sorted_missing_tags, indent=2))
-    return {
-        "statusCode": 200,
-        "body": json.dumps(sorted_missing_tags)
-    }
-
-def list_resources(session, service):
-    """Lista los recursos del servicio especificado usando una sesión."""
-    client = session.client(service)
-    resources = []
-    
-    if service == "ec2":
-        instances = client.describe_instances()
-        for reservation in instances["Reservations"]:
-            for instance in reservation["Instances"]:
-                resources.append(instance["InstanceId"])
-    elif service == "s3":
-        buckets = client.list_buckets()
-        resources = [bucket["Name"] for bucket in buckets["Buckets"]]
-    elif service == "dynamodb":
-        tables = client.list_tables()
-        resources = tables["TableNames"]
-    elif service == "rds":
-        dbs = client.describe_db_instances()
-        resources = [db["DBInstanceIdentifier"] for db in dbs["DBInstances"]]
-    elif service == "lambda":
-        functions = client.list_functions()
-        resources = [function["FunctionName"] for function in functions["Functions"]]
-    elif service == "sns":
-        topics = client.list_topics()
-        resources = [topic["TopicArn"] for topic in topics["Topics"]]
-    
-    return resources
-
-def get_resource_tags(session, service, resource_id):
-    """Obtiene las etiquetas de un recurso específico usando una sesión."""
-    client = session.client(service)
-    tags = {}
-    
+    )
+    # Obtener el ID de la ejecución
+    query_execution_id = response['QueryExecutionId']
+    return query_execution_id
+ 
+def wait_for_query_to_complete(query_execution_id):
+    # Esperar hasta que la consulta termine
+    while True:
+        response = athena_client.get_query_execution(QueryExecutionId=query_execution_id)
+        status = response['QueryExecution']['Status']['State']
+        if status == 'SUCCEEDED':
+            print("Consulta ejecutada con éxito")
+            return True
+        elif status == 'FAILED':
+            print("La consulta falló")
+            return False
+        elif status == 'CANCELLED':
+            print("La consulta fue cancelada")
+            return False
+        # Esperar un poco antes de volver a verificar
+        time.sleep(5)
+ 
+def fetch_results_from_s3(query_execution_id):
+    # Verificar que los resultados de la consulta están en S3
+    result_file_path = f"resultados/{query_execution_id}.csv"
+    s3_response = s3_client.get_object(Bucket=bucket_name, Key=result_file_path)
+    return s3_response['Body'].read()
+ 
+def create_excel_from_csv(csv_data):
+    # Crear un DataFrame de pandas a partir de los resultados en CSV
+    df = pd.read_csv(BytesIO(csv_data))
+ 
+    # Crear un archivo Excel en memoria
+    excel_buffer = BytesIO()
+    with pd.ExcelWriter(excel_buffer, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Resultados')
+    excel_buffer.seek(0)
+    return excel_buffer
+ 
+def send_email_with_attachment(excel_buffer):
+    # Enviar el archivo Excel como adjunto por email usando SES
     try:
-        if service == "ec2":
-            response = client.describe_tags(
-                Filters=[{"Name": "resource-id", "Values": [resource_id]}]
-            )
-            tags = {tag["Key"]: tag["Value"] for tag in response["Tags"]}
-        elif service == "s3":
-            response = client.get_bucket_tagging(Bucket=resource_id)
-            tags = {tag["Key"]: tag["Value"] for tag in response["TagSet"]}
-        elif service == "dynamodb":
-            response = client.list_tags_of_resource(ResourceArn=resource_id)
-            tags = {tag["Key"]: tag["Value"] for tag in response["Tags"]}
-        elif service == "rds":
-            response = client.list_tags_for_resource(ResourceName=resource_id)
-            tags = {tag["Key"]: tag["Value"] for tag in response["TagList"]}
-        elif service == "lambda":
-            response = client.list_tags(Resource=resource_id)
-            tags = response["Tags"]
-        elif service == "sns":
-            response = client.list_tags_for_resource(ResourceArn=resource_id)
-            tags = response["Tags"]
-    except Exception as e:
-        print(f"Error obteniendo etiquetas para {service} - {resource_id}: {str(e)}")
-    
-    return tags
-
-def validate_tags(tags, resource_id, service, account_id):
-    """Valida las etiquetas de un recurso contra las requeridas."""
-    missing = []
-    
-    for key, allowed_values in REQUIRED_TAGS.items():
-        if key not in tags or (allowed_values and tags[key] not in allowed_values):
-            missing.append({
-                "AccountId": account_id,
-                "Service": service,
-                "ResourceId": resource_id,
-                "MissingTag": key,
-                "ExpectedValues": allowed_values,
-                "ActualValue": tags.get(key, "None")
-            })
-    
-    return missing
+        response = ses_client.send_raw_email(
+            Source=email_from,
+            Destinations=[email_to],
+            RawMessage={
+                'Data': create_email_message(excel_buffer)
+            }
+        )
+        print(f"Correo enviado: {response}")
+    except ClientError as e:
+        print(f"Error al enviar el correo: {e}")
+ 
+def create_email_message(excel_buffer):
+    # Crear el cuerpo del mensaje con el adjunto Excel
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.base import MIMEBase
+    from email import encoders
+ 
+    msg = MIMEMultipart()
+    msg['Subject'] = subject
+    msg['From'] = email_from
+    msg['To'] = email_to
+    msg.attach(MIMEText(body_text, 'plain'))
+ 
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload(excel_buffer.read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', 'attachment; filename="resultados_athena.xlsx"')
+    msg.attach(part)
+ 
+    return msg.as_string()
+ 
+def lambda_handler(event, context):
+    # Ejecutar la consulta de Athena
+    query_execution_id = execute_athena_query()
+    # Esperar a que la consulta termine
+    if wait_for_query_to_complete(query_execution_id):
+        # Obtener los resultados de S3
+        csv_data = fetch_results_from_s3(query_execution_id)
+        # Crear el archivo Excel desde los resultados CSV
+        excel_buffer = create_excel_from_csv(csv_data)
+        # Enviar el archivo Excel por correo electrónico
+        send_email_with_attachment(excel_buffer)

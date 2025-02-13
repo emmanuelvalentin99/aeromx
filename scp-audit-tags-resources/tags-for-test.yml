@@ -1,0 +1,13 @@
+map-migrated: d-server-03cd3bbblu0msp
+AreaResponsable: DA-AI
+CentroDeCosto: 121001
+DuenoDeLaCuenta: amsoportedatalake@aeromexico.com
+Proyecto: Datalake
+Aplicacion: Datalake
+ProjectName: am-proyecto-prueba-scp
+Area: DataAnalytics
+Environment: dev
+Vertical: de
+Ambiente: DE
+ImpactoANegocio: Tier4
+lcf: NA

@@ -1,0 +1,131 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyResourceCreationWithoutTags",
+        "Effect": "Deny",
+        "Action": [
+          "ec2:RunInstances",
+          "ec2:CreateVolume",
+          "ec2:CreateSnapshot",
+          "ec2:CreateImage",
+          "ec2:CreateVpc",
+          "ec2:CreateSubnet",
+          "ec2:CreateSecurityGroup",
+          "elasticfilesystem:CreateFileSystem",
+          "elasticfilesystem:CreateAccessPoint",
+          "rds:CreateDBInstance",
+          "rds:CreateDBCluster",
+          "rds:CreateDBSnapshot",
+          "rds:CreateDBSubnetGroup",
+          "dynamodb:CreateTable",
+          "redshift:CreateCluster",
+          "glue:CreateDatabase",
+          "glue:CreateTable",
+          "elasticloadbalancing:CreateLoadBalancer",
+          "apigateway:CreateRestApi",
+          "ecs:CreateCluster",
+          "eks:CreateCluster",
+          "lambda:CreateFunction",
+          "iam:CreateRole",
+          "iam:CreatePolicy",
+          "kms:CreateKey",
+          "secretsmanager:CreateSecret"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "Null": {
+            "aws:RequestTag/Area": "true",
+            "aws:RequestTag/Environment": "true",
+            "aws:RequestTag/Vertical": "true",
+            "aws:RequestTag/ProjectName": "true",
+            "aws:RequestTag/map-migrated": "true",
+            "aws:RequestTag/Ambiente": "true",
+            "aws:RequestTag/AreaResponsable": "true",
+            "aws:RequestTag/CentroDeCosto": "true",
+            "aws:RequestTag/DuenoDeLaCuenta": "true",
+            "aws:RequestTag/Proyecto": "true",
+            "aws:RequestTag/Aplicacion": "true",
+            "aws:RequestTag/ImpactoANegocio": "true",
+            "aws:RequestTag/lcf": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyResourceCreationWithInvalidTagValues",
+        "Effect": "Deny",
+        "Action": [
+          "ec2:RunInstances",
+          "ec2:CreateVolume",
+          "ec2:CreateSnapshot",
+          "ec2:CreateImage",
+          "ec2:CreateVpc",
+          "ec2:CreateSubnet",
+          "ec2:CreateSecurityGroup",
+          "elasticfilesystem:CreateFileSystem",
+          "elasticfilesystem:CreateAccessPoint",
+          "rds:CreateDBInstance",
+          "rds:CreateDBCluster",
+          "rds:CreateDBSnapshot",
+          "rds:CreateDBSubnetGroup",
+          "dynamodb:CreateTable",
+          "redshift:CreateCluster",
+          "glue:CreateDatabase",
+          "glue:CreateTable",
+          "elasticloadbalancing:CreateLoadBalancer",
+          "apigateway:CreateRestApi",
+          "ecs:CreateCluster",
+          "eks:CreateCluster",
+          "lambda:CreateFunction",
+          "iam:CreateRole",
+          "iam:CreatePolicy",
+          "kms:CreateKey",
+          "secretsmanager:CreateSecret"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringNotEqualsIfExists": {
+            "aws:RequestTag/Area": [
+              "Cargo", "Mantenimiento", "Operaciones", "Aeropuertos", "Seguridad-aerea",
+              "Revenie-accounting", "Call-center", "DataAnalytics", "Estrategia-de-ingresos",
+              "Pricing", "Svoc", "Voc", "Revenue-management", "Marketing"
+            ],
+            "aws:RequestTag/Environment": [
+              "dev", "qa", "prod"
+            ],
+            "aws:RequestTag/Vertical": [
+              "comm", "cust", "corp", "cha-beth", "svoe", "oper", "ia", "de"
+            ],
+            "aws:RequestTag/map-migrated": [
+              "d-server-03cd3bbblu0msp"
+            ],
+            "aws:RequestTag/Ambiente": [
+              "PD", "Q", "DE"
+            ],
+            "aws:RequestTag/AreaResponsable": [
+              "DA-AI"
+            ],
+            "aws:RequestTag/CentroDeCosto": [
+              "121001"
+            ],
+            "aws:RequestTag/DuenoDeLaCuenta": [
+              "amsoportedatalake@aeromexico.com"
+            ],
+            "aws:RequestTag/Proyecto": [
+              "Datalake"
+            ],
+            "aws:RequestTag/Aplicacion": [
+              "Datalake"
+            ],
+            "aws:RequestTag/ImpactoANegocio": [
+              "Tier1", "Tier2", "Tier3", "Tier4"
+            ],
+            "aws:RequestTag/lcf": [
+              "IF", "DP", "NA"
+            ]
+          }
+        }
+      }
+    ]
+  }
+  

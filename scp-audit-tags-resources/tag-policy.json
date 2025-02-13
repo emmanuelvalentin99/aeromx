@@ -1,0 +1,92 @@
+{
+  "tags": {
+    "Area": {
+      "tag_key": { "@@assign": "Area" },
+      "tag_value": {
+        "@@assign": [
+          "Cargo",
+          "Mantenimiento",
+          "Operaciones",
+          "Aeropuertos",
+          "Seguridad-aerea",
+          "Revenie-accounting",
+          "Call-center",
+          "DataAnalytics",
+          "Estrategia-de-ingresos",
+          "Pricing",
+          "Svoc",
+          "Voc",
+          "Revenue-management",
+          "Marketing"
+        ]
+      }
+    },
+    "Environment": {
+      "tag_key": { "@@assign": "Environment" },
+      "tag_value": {
+        "@@assign": ["dev", "qa", "prod"]
+      }
+    },
+    "Vertical": {
+      "tag_key": { "@@assign": "Vertical" },
+      "tag_value": {
+        "@@assign": [
+          "comm",
+          "cust",
+          "corp",
+          "cha-beth",
+          "svoe",
+          "oper",
+          "ia",
+          "de"
+        ]
+      }
+    },
+    "ProjectName": {
+      "tag_key": { "@@assign": "ProjectName" },
+      "tag_value": { "@@assign": "@@variable" }
+    },
+    "map-migrated": {
+      "tag_key": { "@@assign": "map-migrated" },
+      "tag_value": { "@@assign": "d-server-03cd3bbblu0msp" }
+    },
+    "Ambiente": {
+      "tag_key": { "@@assign": "Ambiente" },
+      "tag_value": {
+        "@@assign": ["PD", "Q", "DE"]
+      }
+    },
+    "AreaResponsable": {
+      "tag_key": { "@@assign": "AreaResponsable" },
+      "tag_value": { "@@assign": "DA-AI" }
+    },
+    "CentroDeCosto": {
+      "tag_key": { "@@assign": "CentroDeCosto" },
+      "tag_value": { "@@assign": "121001" }
+    },
+    "DuenoDeLaCuenta": {
+      "tag_key": { "@@assign": "DuenoDeLaCuenta" },
+      "tag_value": { "@@assign": "amsoportedatalake@aeromexico.com" }
+    },
+    "Proyecto": {
+      "tag_key": { "@@assign": "Proyecto" },
+      "tag_value": { "@@assign": "Datalake" }
+    },
+    "Aplicacion": {
+      "tag_key": { "@@assign": "Aplicacion" },
+      "tag_value": { "@@assign": "Datalake" }
+    },
+    "ImpactoANegocio": {
+      "tag_key": { "@@assign": "ImpactoANegocio" },
+      "tag_value": {
+        "@@assign": ["Tier1", "Tier2", "Tier3", "Tier4"]
+      }
+    },
+    "lcf": {
+      "tag_key": { "@@assign": "lcf" },
+      "tag_value": {
+        "@@assign": ["IF", "DP", "NA"]
+      }
+    }
+  }
+}
