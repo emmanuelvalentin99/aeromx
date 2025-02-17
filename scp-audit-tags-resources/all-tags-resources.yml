@@ -1,7 +1,7 @@
 Area: [Cargo,Mantenimiento,Operaciones,Aeropuertos,Seguridad-aerea,Revenie-accounting,Call-center,DataAnalytics,Estrategia-de-ingresos,Pricing,Svoc,Voc,Revenue-management,Marketing]
 Environment: [dev,qa,prod]
 Vertical: [comm,cust,corp,cha-beth,svoe,oper,ia,de]
-ProjectName: {valor variable}
+ProjectName: {*}
 map-migrated: d-server-03cd3bbblu0msp
 Ambiente: [PD,Q,DE]
 AreaResponsable: DA-AI
