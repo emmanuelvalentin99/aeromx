@@ -12,7 +12,6 @@
       ],
       "Resource": [
         "arn:aws:ec2:*:*:instance/*",
-        "arn:aws:ec2:*:*:volume/*",
         "arn:aws:ec2:*:*:snapshot/*"
       ],
       "Condition": { 
@@ -33,7 +32,6 @@
       ],
       "Resource": [
         "arn:aws:ec2:*:*:instance/*",
-        "arn:aws:ec2:*:*:volume/*",
         "arn:aws:ec2:*:*:snapshot/*"
       ],
       "Condition": { "Null": { 
@@ -53,7 +51,6 @@
       ],
       "Resource": [
         "arn:aws:ec2:*:*:instance/*",
-        "arn:aws:ec2:*:*:volume/*",
         "arn:aws:ec2:*:*:snapshot/*"
       ],
       "Condition": { 
@@ -74,7 +71,6 @@
       ],
       "Resource": [
         "arn:aws:ec2:*:*:instance/*",
-        "arn:aws:ec2:*:*:volume/*",
         "arn:aws:ec2:*:*:snapshot/*"
       ],
       "Condition": { 
