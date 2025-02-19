@@ -1,65 +1,47 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "DenyEC2ResourcesWithoutRequiredTags",
-        "Effect": "Deny",
-        "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
-        "Resource": [
-          "arn:aws:ec2:*:*:instance/*",
-          "arn:aws:ec2:*:*:snapshot/*"
-        ],
-        "Condition": {
-          "Null": {
-            "aws:RequestTag/Environment": "true",
-            "aws:RequestTag/Area": "true",
-            "aws:RequestTag/Vertical": "true",
-            "aws:RequestTag/ProjectName": "true",
-            "aws:RequestTag/map-migrated": "true",
-            "aws:RequestTag/Ambiente": "true",
-            "aws:RequestTag/AreaResponsable": "true",
-            "aws:RequestTag/CentroDeCosto": "true",
-            "aws:RequestTag/DuenoDeLaCuenta": "true",
-            "aws:RequestTag/Proyecto": "true",
-            "aws:RequestTag/Aplicacion": "true",
-            "aws:RequestTag/ImpactoANegocio": "true",
-            "aws:RequestTag/lcf": "true"
-          }
-        }
-      },
-      {
-        "Sid": "DenyEC2ResourcesWithInvalidTagValues",
-        "Effect": "Deny",
-        "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
-        "Resource": [
-          "arn:aws:ec2:*:*:instance/*",
-          "arn:aws:ec2:*:*:snapshot/*"
-        ],
-        "Condition": {
-          "StringNotEqualsIfExists": {
-            "aws:RequestTag/Environment": ["dev", "qa", "prod"],
-            "aws:RequestTag/Area": [
-              "Cargo", "Mantenimiento", "Operaciones", "Aeropuertos", 
-              "Seguridad-aerea", "Revenie-accounting", "Call-center",
-              "DataAnalytics", "Estrategia-de-ingresos", "Pricing",
-              "Svoc", "Voc", "Revenue-management", "Marketing"
-            ],
-            "aws:RequestTag/Vertical": [
-              "comm", "cust", "corp", "cha-beth", "svoe", "oper", "ia", "de"
-            ],
-            "aws:RequestTag/map-migrated": ["d-server-03cd3bbblu0msp"],
-            "aws:RequestTag/Ambiente": ["PD", "Q", "DE"],
-            "aws:RequestTag/AreaResponsable": ["DA-AI"],
-            "aws:RequestTag/CentroDeCosto": ["121001"],
-            "aws:RequestTag/DuenoDeLaCuenta": ["amsoportedatalake@aeromexico.com"],
-            "aws:RequestTag/Proyecto": ["Datalake"],
-            "aws:RequestTag/Aplicacion": ["Datalake"],
-            "aws:RequestTag/ImpactoANegocio": ["Tier1", "Tier2", "Tier3", "Tier4"],
-            "aws:RequestTag/lcf": ["IF", "DP", "NA"]
-          }
-        }
-      }
-    ]
-
-    
-  }
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyEC2WithoutTagEnvironment",
+      "Effect": "Deny",
+      "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
+      "Resource": [
+        "arn:aws:ec2:*:*:instance/*",
+        "arn:aws:ec2:*:*:snapshot/*"
+      ],
+      "Condition": { "Null": { "aws:RequestTag/Environment": "true" } }
+    },
+    {
+      "Sid": "DenyEC2WithoutTagArea",
+      "Effect": "Deny",
+      "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
+      "Resource": [
+        "arn:aws:ec2:*:*:instance/*",
+        "arn:aws:ec2:*:*:snapshot/*"
+      ],
+      "Condition": { "Null": { "aws:RequestTag/lcf": "true" } }
+    },
+    {
+      "Sid": "DenyEC2WithoutTagVertical",
+      "Effect": "Deny",
+      "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
+      "Resource": [
+        "arn:aws:ec2:*:*:instance/*",
+        "arn:aws:ec2:*:*:snapshot/*"
+      ],
+      "Condition": { "StringNotEqualsIfExists": {
+          "aws:RequestTag/Environment": ["dev", "qa", "prod"] } }
+    },
+    {
+      "Sid": "DenyEC2WithoutTagProjectName",
+      "Effect": "Deny",
+      "Action": ["ec2:RunInstances", "ec2:CreateSnapshot"],
+      "Resource": [
+        "arn:aws:ec2:*:*:instance/*",
+        "arn:aws:ec2:*:*:snapshot/*"
+      ],
+      "Condition": { "StringNotEqualsIfExists": {
+          "aws:RequestTag/lcf": ["IF", "DP", "NA"] } }
+    }
+  ]
+}
