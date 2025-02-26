@@ -1,0 +1,90 @@
+//Si Denegar acciones de invocacion, modificacion y creacion funciona con resource
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyLambdaWithoutTagEnvironment",
+        "Effect": "Deny",
+        "Action": [
+           "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:InvokeFunction",
+            "lambda:CreateFunction",
+            "lambda:TagResource",
+            "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:PublishVersion",
+            "lambda:CreateAlias"
+        ],
+        "Resource": "arn:aws:lambda:*:*:function:*",
+        "Condition": { 
+          "Null": { 
+            "aws:ResourceTag/Environment": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyLambdaWithoutTagLCF",
+        "Effect": "Deny",
+        "Action": [
+            "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:InvokeFunction",
+            "lambda:CreateFunction",
+            "lambda:TagResource",
+            "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:PublishVersion",
+            "lambda:CreateAlias"
+        ],
+        "Resource": "arn:aws:lambda:*:*:function:*",
+        "Condition": { 
+          "Null": { 
+            "aws:ResourceTag/lcf": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyLambdaWithInvalidEnvironment",
+        "Effect": "Deny",
+        "Action": [
+            "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:InvokeFunction",
+            "lambda:CreateFunction",
+            "lambda:TagResource",
+            "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:PublishVersion",
+            "lambda:CreateAlias"
+        ],
+        "Resource": "arn:aws:lambda:*:*:function:*",
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+          }
+        }
+      },
+      {
+        "Sid": "DenyLambdaWithInvalidLCF",
+        "Effect": "Deny",
+        "Action": [
+            "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:InvokeFunction",
+            "lambda:CreateFunction",
+            "lambda:TagResource",
+            "lambda:UpdateFunctionConfiguration",
+            "lambda:UpdateFunctionCode",
+            "lambda:PublishVersion",
+            "lambda:CreateAlias"
+        ],
+        "Resource": "arn:aws:lambda:*:*:function:*",
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+          }
+        }
+      }
+    ]
+}

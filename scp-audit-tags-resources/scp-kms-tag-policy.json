@@ -1,0 +1,90 @@
+//Si curioso pero da un error de malformed y si se puede evitar la creación con el putpolicy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyS3WithoutTagEnvironment",
+        "Effect": "Deny",
+        "Action": [
+            "kms:ScheduleKeyDeletion",
+            "kms:EnableKey",
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:ReEncrypt*",
+            "kms:GenerateDataKey*",
+            "kms:PutKeyPolicy",
+            "kms:EnableKeyRotation",
+            "kms:DisableKeyRotation"
+        ],
+        "Resource": "*",
+        "Condition": { 
+          "Null": { 
+            "aws:ResourceTag/Environment": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyS3WithoutTagLCF",
+        "Effect": "Deny",
+        "Action": [
+            "kms:ScheduleKeyDeletion",
+            "kms:EnableKey",
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:ReEncrypt*",
+            "kms:GenerateDataKey*",
+            "kms:PutKeyPolicy",
+            "kms:EnableKeyRotation",
+            "kms:DisableKeyRotation"
+        ],
+        "Resource": "*",
+        "Condition": { 
+          "Null": { 
+            "aws:ResourceTag/lcf": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyS3WithInvalidEnvironment",
+        "Effect": "Deny",
+        "Action": [
+            "kms:ScheduleKeyDeletion",
+            "kms:EnableKey",
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:ReEncrypt*",
+            "kms:GenerateDataKey*",
+            "kms:PutKeyPolicy",
+            "kms:EnableKeyRotation",
+            "kms:DisableKeyRotation"
+        ],
+        "Resource": "*",
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+          }
+        }
+      },
+      {
+        "Sid": "DenyS3WithInvalidLCF",
+        "Effect": "Deny",
+        "Action": [
+            "kms:ScheduleKeyDeletion",
+            "kms:EnableKey",
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:ReEncrypt*",
+            "kms:GenerateDataKey*",
+            "kms:PutKeyPolicy",
+            "kms:EnableKeyRotation",
+            "kms:DisableKeyRotation"
+        ],
+        "Resource": "*",
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+          }
+        }
+      }
+    ]
+}

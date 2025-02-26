@@ -1,0 +1,24 @@
+Reshift >> Resource Tag / No tiene un recurso que sirva para bloquear
+Glue >> Resource Tag / No tiene un recurso que sirva para bloquear
+KMS >> Resource Tag / Si se puede bloquear desde la creación con Putpolicy
+EventBridge >> Resource Tag / No tiene un recurso que sirva para bloquear
+Lambda >> Resource Tag / Si tiene algunos recursos para bloquear y si funciona en la creación con resource
+AppFlow
+Cloud Control API
+EC2 >> Request y Resource Tag / Si Funciona perfectamente.
+Elastic Container Registry
+RDS >> Resource Tag / No tiene un recurso que sirva para bloquear
+S3 >> Resource Tag / No tiene un recurso que sirva para bloquear
+Secrets Manager
+SNS
+StepFuctions
+Athena
+DynamoDB
+EMR
+EventBridge Scheduler
+Lake Formation
+MWAA
+OpenSearch Service
+Pinpoint Email
+Service Catalog
+SES

@@ -21,7 +21,7 @@
       }
     },
     {
-      "Sid": "DenyEC2WithoutTagArea",
+      "Sid": "DenyEC2WithoutTagLCF",
       "Effect": "Deny",
       "Action": [
         "ec2:RunInstances", 
@@ -33,13 +33,13 @@
         "arn:aws:ec2:*:*:snapshot/*"
       ],
       "Condition": { "Null": { 
-          "aws:RequestTag/Environment": "true",
-          "aws:ResourceTag/Environment": "true"
+          "aws:RequestTag/lcf": "true",
+          "aws:ResourceTag/lcf": "true"
         } 
       }
     },
     {
-      "Sid": "DenyEC2WithoutTagVertical",
+      "Sid": "DenyEC2WithInvalidEnvironment",
       "Effect": "Deny",
       "Action": [
         "ec2:RunInstances", 
@@ -58,7 +58,7 @@
         }
     },
     {
-      "Sid": "DenyEC2WithoutTagProjectName",
+      "Sid": "DenyEC2WithInvalidLCF",
       "Effect": "Deny",
       "Action": [
         "ec2:RunInstances", 

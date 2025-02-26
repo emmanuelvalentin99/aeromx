@@ -1,0 +1,8 @@
+//No funciona requestTag y no vale la pena resource
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {}
+      
+    ]
+}

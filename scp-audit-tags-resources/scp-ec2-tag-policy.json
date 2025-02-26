@@ -1,0 +1,83 @@
+//Crear e iniciar instancias sin tags
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyEC2WithoutTagEnvironment",
+        "Effect": "Deny",
+        "Action": [
+          "ec2:RunInstances", 
+          "ec2:CreateSnapshot",
+          "ec2:StartInstances"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:instance/*",
+          "arn:aws:ec2:*:*:snapshot/*"
+        ],
+        "Condition": { 
+          "Null": { 
+            "aws:RequestTag/Environment": "true",
+            "aws:ResourceTag/Environment": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyEC2WithoutTagArea",
+        "Effect": "Deny",
+        "Action": [
+          "ec2:RunInstances", 
+          "ec2:CreateSnapshot",
+          "ec2:StartInstances"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:instance/*",
+          "arn:aws:ec2:*:*:snapshot/*"
+        ],
+        "Condition": { "Null": { 
+            "aws:RequestTag/lcf": "true",
+            "aws:ResourceTag/lcf": "true"
+          } 
+        }
+      },
+      {
+        "Sid": "DenyEC2WithoutTagVertical",
+        "Effect": "Deny",
+        "Action": [
+          "ec2:RunInstances", 
+          "ec2:CreateSnapshot",
+          "ec2:StartInstances"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:instance/*",
+          "arn:aws:ec2:*:*:snapshot/*"
+        ],
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:RequestTag/Environment": ["dev", "qa", "prod"],
+            "aws:ResourceTag/Environment": ["dev", "qa", "prod"] 
+            } 
+          }
+      },
+      {
+        "Sid": "DenyEC2WithoutTagProjectName",
+        "Effect": "Deny",
+        "Action": [
+          "ec2:RunInstances", 
+          "ec2:CreateSnapshot",
+          "ec2:StartInstances"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:instance/*",
+          "arn:aws:ec2:*:*:snapshot/*"
+        ],
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:RequestTag/lcf": ["IF", "DP", "NA"],
+            "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+             
+          } 
+        }
+      }
+    ]
+  }
+  

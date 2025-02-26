@@ -1,0 +1,62 @@
+//Solo admite resourcetags pero no sirve de mucho por que dentro del bus se pueden crear otros objetos
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyEventBridgeWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "events:PutRule",
+				        "events:PutEvents"
+              ],
+            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Condition": { 
+              "Null": { 
+                "aws:ResourceTag/Environment": "true"
+              }
+            }
+          },
+          {
+            "Sid": "DenyEventBridgeWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "events:PutRule",
+				        "events:PutEvents"
+              ],
+            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Condition": { 
+              "Null": { 
+                "aws:ResourceTag/lcf": "true"
+              }
+            }
+          },
+        {
+            "Sid": "DenyEventBridgeWithoutValidEnvironmentTag",
+            "Effect": "Deny",
+            "Action": [
+                "events:PutRule",
+        				"events:PutEvents"
+              ],
+            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyEventBridgeWithoutValidLcfTag",
+            "Effect": "Deny",
+            "Action": [
+                "events:PutRule",
+        				"events:PutEvents"
+              ],
+            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

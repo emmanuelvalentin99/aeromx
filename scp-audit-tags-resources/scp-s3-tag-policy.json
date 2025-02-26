@@ -1,0 +1,90 @@
+//No funciona ResourceTag pero puede funcionar con Resource pss tampoco con resource
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyS3WithoutTagEnvironment",
+        "Effect": "Deny",
+        "Action": [
+          "s3:CreateBucket",
+          "s3:PutBucketAcl",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketTagging",
+          "s3:PutBucketVersioning",
+          "s3:PutBucketLogging",
+          "s3:PutBucketWebsite",
+          "s3:PutBucketCors"
+        ],
+        "Resource": "arn:*:s3:::*",
+        "Condition": { 
+          "Null": { 
+            "aws:ResourceTag/Environment": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyS3WithoutTagLCF",
+        "Effect": "Deny",
+        "Action": [
+          "s3:CreateBucket",
+          "s3:PutBucketAcl",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketTagging",
+          "s3:PutBucketVersioning",
+          "s3:PutBucketLogging",
+          "s3:PutBucketWebsite",
+          "s3:PutBucketCors"
+        ],
+        "Resource": "arn:*:s3:::*",
+        "Condition": { 
+          "Null": { 
+            "aws:ResourceTag/lcf": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyS3WithInvalidEnvironment",
+        "Effect": "Deny",
+        "Action": [
+          "s3:CreateBucket",
+          "s3:PutBucketAcl",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketTagging",
+          "s3:PutBucketVersioning",
+          "s3:PutBucketLogging",
+          "s3:PutBucketWebsite",
+          "s3:PutBucketCors"
+        ],
+        "Resource": "arn:*:s3:::*",
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+          }
+        }
+      },
+      {
+        "Sid": "DenyS3WithInvalidLCF",
+        "Effect": "Deny",
+        "Action": [
+          "s3:CreateBucket",
+          "s3:PutBucketAcl",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketPublicAccessBlock",
+          "s3:PutBucketTagging",
+          "s3:PutBucketVersioning",
+          "s3:PutBucketLogging",
+          "s3:PutBucketWebsite",
+          "s3:PutBucketCors"
+        ],
+        "Resource": "arn:*:s3:::*",
+        "Condition": { 
+          "StringNotEqualsIfExists": {
+            "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+          }
+        }
+      }
+    ]
+}
