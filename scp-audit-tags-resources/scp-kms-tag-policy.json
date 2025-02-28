@@ -3,7 +3,7 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Sid": "DenyS3WithoutTagEnvironment",
+        "Sid": "DenyKMSWithoutTagEnvironment",
         "Effect": "Deny",
         "Action": [
             "kms:ScheduleKeyDeletion",
@@ -16,7 +16,7 @@
             "kms:EnableKeyRotation",
             "kms:DisableKeyRotation"
         ],
-        "Resource": "*",
+        "Resource": "arn:*:kms:*:*:key/*",
         "Condition": { 
           "Null": { 
             "aws:ResourceTag/Environment": "true"
@@ -24,7 +24,7 @@
         }
       },
       {
-        "Sid": "DenyS3WithoutTagLCF",
+        "Sid": "DenyKMSWithoutTagLCF",
         "Effect": "Deny",
         "Action": [
             "kms:ScheduleKeyDeletion",
@@ -37,7 +37,7 @@
             "kms:EnableKeyRotation",
             "kms:DisableKeyRotation"
         ],
-        "Resource": "*",
+        "Resource": "arn:*:kms:*:*:key/*",
         "Condition": { 
           "Null": { 
             "aws:ResourceTag/lcf": "true"
@@ -45,7 +45,7 @@
         }
       },
       {
-        "Sid": "DenyS3WithInvalidEnvironment",
+        "Sid": "DenyKMSWithInvalidEnvironment",
         "Effect": "Deny",
         "Action": [
             "kms:ScheduleKeyDeletion",
@@ -58,7 +58,7 @@
             "kms:EnableKeyRotation",
             "kms:DisableKeyRotation"
         ],
-        "Resource": "*",
+        "Resource": "arn:*:kms:*:*:key/*",
         "Condition": { 
           "StringNotEqualsIfExists": {
             "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
@@ -66,7 +66,7 @@
         }
       },
       {
-        "Sid": "DenyS3WithInvalidLCF",
+        "Sid": "DenyKMSWithInvalidLCF",
         "Effect": "Deny",
         "Action": [
             "kms:ScheduleKeyDeletion",
@@ -79,7 +79,7 @@
             "kms:EnableKeyRotation",
             "kms:DisableKeyRotation"
         ],
-        "Resource": "*",
+        "Resource": "arn:*:kms:*:*:key/*",
         "Condition": { 
           "StringNotEqualsIfExists": {
             "aws:ResourceTag/lcf": ["IF", "DP", "NA"]

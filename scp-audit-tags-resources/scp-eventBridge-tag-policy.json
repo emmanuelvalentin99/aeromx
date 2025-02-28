@@ -1,4 +1,5 @@
 //Solo admite resourcetags pero no sirve de mucho por que dentro del bus se pueden crear otros objetos
+//Si funciona perfectamente
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -6,10 +7,15 @@
             "Sid": "DenyEventBridgeWithoutTagEnvironment",
             "Effect": "Deny",
             "Action": [
+                "events:CreateEventBus",
                 "events:PutRule",
-				        "events:PutEvents"
+                "events:PutTargets",
+                "events:PutPermission"
               ],
-            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Resource": [
+                "arn:aws:events:*:*:event-bus/*",
+                "arn:aws:events:*:*:rule/*"
+              ],
             "Condition": { 
               "Null": { 
                 "aws:ResourceTag/Environment": "true"
@@ -20,10 +26,15 @@
             "Sid": "DenyEventBridgeWithoutTagLCF",
             "Effect": "Deny",
             "Action": [
+                "events:CreateEventBus",
                 "events:PutRule",
-				        "events:PutEvents"
+                "events:PutTargets",
+                "events:PutPermission"
               ],
-            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Resource": [
+              "arn:aws:events:*:*:event-bus/*",
+              "arn:aws:events:*:*:rule/*"
+            ],
             "Condition": { 
               "Null": { 
                 "aws:ResourceTag/lcf": "true"
@@ -34,10 +45,15 @@
             "Sid": "DenyEventBridgeWithoutValidEnvironmentTag",
             "Effect": "Deny",
             "Action": [
+                "events:CreateEventBus",
                 "events:PutRule",
-        				"events:PutEvents"
+                "events:PutTargets",
+                "events:PutPermission"
               ],
-            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Resource": [
+              "arn:aws:events:*:*:event-bus/*",
+              "arn:aws:events:*:*:rule/*"
+            ],
             "Condition": {
                 "StringNotEqualsIfExists": {
                     "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
@@ -48,10 +64,15 @@
             "Sid": "DenyEventBridgeWithoutValidLcfTag",
             "Effect": "Deny",
             "Action": [
+                "events:CreateEventBus",
                 "events:PutRule",
-        				"events:PutEvents"
+                "events:PutTargets",
+                "events:PutPermission"
               ],
-            "Resource": "arn:aws:events:*:*:event-bus/*",
+            "Resource": [
+              "arn:aws:events:*:*:event-bus/*",
+              "arn:aws:events:*:*:rule/*"
+            ],
             "Condition": {
                 "StringNotEqualsIfExists": {
                     "aws:ResourceTag/lcf": ["IF", "DP", "NA"]

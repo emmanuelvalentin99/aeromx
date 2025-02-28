@@ -1,7 +1,7 @@
-Reshift >> Resource Tag / No tiene un recurso que sirva para bloquear
-Glue >> Resource Tag / No tiene un recurso que sirva para bloquear
+Reshift >> Resource Tag / No se pueden crear tags al inicio entonces no es posible
+Glue >> Resource Tag / Solo sirvio con los registrys las db no tiene para colocar tags al inicio
 KMS >> Resource Tag / Si se puede bloquear desde la creación con Putpolicy
-EventBridge >> Resource Tag / No tiene un recurso que sirva para bloquear
+EventBridge >> Resource Tag / Si funciona bien con evnt bus y con rules
 Lambda >> Resource Tag / Si tiene algunos recursos para bloquear y si funciona en la creación con resource
 AppFlow
 Cloud Control API

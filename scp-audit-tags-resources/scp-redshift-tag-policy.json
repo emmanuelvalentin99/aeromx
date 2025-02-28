@@ -1,8 +1,98 @@
-//No funciona requestTag y no vale la pena resource
+//No funciona requestTag ni resource por que no se ingresan los tags al inicio de la creción del cluster
 {
-    "Version": "2012-10-17",
-    "Statement": [
-      {}
-      
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyRedShiftWithoutTagEnvironment",
+      "Effect": "Deny",
+      "Action": [
+        "redshift:CreateCluster",
+        "redshift:ModifyCluster",
+        "redshift:CreateClusterSnapshot",
+        "redshift:CreateSnapshotSchedule",
+        "redshift:ModifyClusterSnapshot",
+        "redshift:ModifyClusterSnapshotSchedule"
+      ],
+      "Resource": [
+        "arn:aws:redshift:*:*:cluster/*",
+        "arn:aws:redshift:*:*:snapshot/*/*"
+      ],
+      "Condition": {
+        "Null": {
+          "aws:ResourceTag/Environment": "true"
+        }
+      }
+    },
+    {
+      "Sid": "DenyRedShiftWithoutTagLCF",
+      "Effect": "Deny",
+      "Action": [
+        "redshift:CreateCluster",
+        "redshift:ModifyCluster",
+        "redshift:CreateClusterSnapshot",
+        "redshift:CreateSnapshotSchedule",
+        "redshift:ModifyClusterSnapshot",
+        "redshift:ModifyClusterSnapshotSchedule"
+      ],
+      "Resource": [
+        "arn:aws:redshift:*:*:cluster/*",
+        "arn:aws:redshift:*:*:snapshot/*/*"
+      ],
+      "Condition": {
+        "Null": {
+          "aws:ResourceTag/lcf": "true"
+        }
+      }
+    },
+    {
+      "Sid": "DenyRedShiftWithoutValidEnvironmentTag",
+      "Effect": "Deny",
+      "Action": [
+        "redshift:CreateCluster",
+        "redshift:ModifyCluster",
+        "redshift:CreateClusterSnapshot",
+        "redshift:CreateSnapshotSchedule",
+        "redshift:ModifyClusterSnapshot",
+        "redshift:ModifyClusterSnapshotSchedule"
+      ],
+      "Resource": [
+        "arn:aws:redshift:*:*:cluster/*",
+        "arn:aws:redshift:*:*:snapshot/*/*"
+      ],
+      "Condition": {
+        "StringNotEqualsIfExists": {
+          "aws:ResourceTag/Environment": [
+            "dev",
+            "qa",
+            "prod"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "DenyRedShiftWithoutValidLcfTag",
+      "Effect": "Deny",
+      "Action": [
+        "redshift:CreateCluster",
+        "redshift:ModifyCluster",
+        "redshift:CreateClusterSnapshot",
+        "redshift:CreateSnapshotSchedule",
+        "redshift:ModifyClusterSnapshot",
+        "redshift:ModifyClusterSnapshotSchedule"
+      ],
+      "Resource": [
+        "arn:aws:redshift:*:*:cluster/*",
+        "arn:aws:redshift:*:*:snapshot/*/*"
+      ],
+      "Condition": {
+        "StringNotEqualsIfExists": {
+          "aws:ResourceTag/lcf": [
+            "IF",
+            "DP",
+            "NA"
+          ]
+        }
+      }
+    }
+  ]
 }
