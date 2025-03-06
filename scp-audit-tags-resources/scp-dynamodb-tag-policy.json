@@ -1,0 +1,52 @@
+//Si Funciono Correctamente para dynamo tables
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyDynamoDBWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": "dynamodb:CreateTable",
+            "Resource": "arn:aws:dynamodb:*:*:table/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyDynamoDBWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": "dynamodb:CreateTable",
+            "Resource": "arn:aws:dynamodb:*:*:table/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyDynamoDBWithInvalidEnvironment",
+            "Effect": "Deny",
+            "Action": "dynamodb:CreateTable",
+            "Resource": "arn:aws:dynamodb:*:*:table/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyDynamoDBWithInvalidLCF",
+            "Effect": "Deny",
+            "Action": "dynamodb:CreateTable",
+            "Resource": "arn:aws:dynamodb:*:*:table/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyDAXWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": "dax:CreateCluster",
+            "Resource": "arn:aws:dax:*:*:cluster/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyDAXWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": "dax:CreateCluster",
+            "Resource": "arn:aws:dax:*:*:cluster/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyDAXWithInvalidEnvironment",
+            "Effect": "Deny",
+            "Action": "dax:CreateCluster",
+            "Resource": "arn:aws:dax:*:*:cluster/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyDAXWithInvalidLCF",
+            "Effect": "Deny",
+            "Action": "dax:CreateCluster",
+            "Resource": "arn:aws:dax:*:*:cluster/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

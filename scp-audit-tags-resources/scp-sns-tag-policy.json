@@ -1,0 +1,49 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenySNSTopicWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": "sns:CreateTopic",
+            "Resource": "arn:aws:sns:*:*:*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenySNSTopicWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": "sns:CreateTopic",
+            "Resource": "arn:aws:sns:*:*:*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenySNSTopicWithInvalidEnvironment",
+            "Effect": "Deny",
+            "Action": "sns:CreateTopic",
+            "Resource": "arn:aws:sns:*:*:*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenySNSTopicWithInvalidLCF",
+            "Effect": "Deny",
+            "Action": "sns:CreateTopic",
+            "Resource": "arn:aws:sns:*:*:*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

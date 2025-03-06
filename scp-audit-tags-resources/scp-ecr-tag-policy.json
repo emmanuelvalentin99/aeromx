@@ -1,0 +1,62 @@
+//No Funciona
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyECRRegistryWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "ecr:CreateRepository",
+                "ecr-public:CreateRepository"
+            ],
+            "Resource": "arn:aws:ecr:*:*:repository/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyECRRegistryWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "ecr:CreateRepository",
+                "ecr-public:CreateRepository"
+            ],
+            "Resource": "arn:aws:ecr:*:*:repository/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyECRRegistryWithInvalidEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "ecr:CreateRepository",
+                "ecr-public:CreateRepository"
+            ],
+            "Resource": "arn:aws:ecr:*:*:repository/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyECRRegistryWithInvalidLCF",
+            "Effect": "Deny",
+            "Action": [
+                "ecr:CreateRepository",
+                "ecr-public:CreateRepository"
+            ],
+            "Resource": "arn:aws:ecr:*:*:repository/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

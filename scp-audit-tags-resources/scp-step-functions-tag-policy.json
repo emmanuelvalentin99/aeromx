@@ -1,0 +1,50 @@
+//Si funciono correctamente
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyStepFunctionWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": "states:CreateStateMachine",
+            "Resource": "arn:aws:states:*:*:stateMachine:*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyStepFunctionWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": "states:CreateStateMachine",
+            "Resource": "arn:aws:states:*:*:stateMachine:*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyStepFunctionWithInvalidEnvironment",
+            "Effect": "Deny",
+            "Action": "states:CreateStateMachine",
+            "Resource": "arn:aws:states:*:*:stateMachine:*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyStepFunctionWithInvalidLCF",
+            "Effect": "Deny",
+            "Action": "states:CreateStateMachine",
+            "Resource": "arn:aws:states:*:*:stateMachine:*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,74 @@
+//Si funciono
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyAppFlowWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "appflow:UpdateFlow",
+                "appflow:DeleteFlow",
+                "appflow:StartFlow",
+                "appflow:StopFlow",
+                "appflow:CreateFlow"
+            ],
+            "Resource": "arn:aws:appflow:*:*:flow/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyAppFlowWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "appflow:UpdateFlow",
+                "appflow:DeleteFlow",
+                "appflow:StartFlow",
+                "appflow:StopFlow",
+                "appflow:CreateFlow"
+            ],
+            "Resource": "arn:aws:appflow:*:*:flow/*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyAppFlowWithInvalidEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "appflow:UpdateFlow",
+                "appflow:DeleteFlow",
+                "appflow:StartFlow",
+                "appflow:StopFlow",
+                "appflow:CreateFlow"
+            ],
+            "Resource": "arn:aws:appflow:*:*:flow/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyAppFlowWithInvalidLCF",
+            "Effect": "Deny",
+            "Action": [
+                "appflow:UpdateFlow",
+                "appflow:DeleteFlow",
+                "appflow:StartFlow",
+                "appflow:StopFlow",
+                "appflow:CreateFlow"
+            ],
+            "Resource": "arn:aws:appflow:*:*:flow/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}
