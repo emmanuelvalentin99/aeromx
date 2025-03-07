@@ -1,0 +1,77 @@
+//No funciona requestTag y no vale la pena resource slo funciono con registrys
+"Version": "2012-10-17",
+"Statement": [
+  {
+    "Sid": "DenyRedShiftWithoutTagEnvironment",
+    "Effect": "Deny",
+    "Action": [
+      "glue:CreateRegistry",
+      "glue:UpdateRegistry"
+    ],
+    "Resource": [
+      "arn:aws:glue:*:*:registry/*"
+    ],
+    "Condition": {
+      "Null": {
+        "aws:ResourceTag/Environment": "true"
+      }
+    }
+  },
+  {
+    "Sid": "DenyRedShiftWithoutTagLCF",
+    "Effect": "Deny",
+    "Action": [
+      "glue:CreateRegistry",
+      "glue:UpdateRegistry"
+    ],
+    "Resource": [
+      "arn:aws:glue:*:*:registry/*"
+    ],
+    "Condition": {
+      "Null": {
+        "aws:ResourceTag/lcf": "true"
+      }
+    }
+  },
+  {
+    "Sid": "DenyRedShiftWithoutValidEnvironmentTag",
+    "Effect": "Deny",
+    "Action": [
+      "glue:CreateRegistry",
+      "glue:UpdateRegistry"
+    ],
+    "Resource": [
+      "arn:aws:glue:*:*:registry/*"
+    ],
+    "Condition": {
+      "StringNotEqualsIfExists": {
+        "aws:ResourceTag/Environment": [
+          "dev",
+          "qa",
+          "prod"
+        ]
+      }
+    }
+  },
+  {
+    "Sid": "DenyRedShiftWithoutValidLcfTag",
+    "Effect": "Deny",
+    "Action": [
+      "glue:CreateRegistry",
+      "glue:UpdateRegistry"
+    ],
+    "Resource": [
+      "arn:aws:glue:*:*:registry/*"
+    ],
+    "Condition": {
+      "StringNotEqualsIfExists": {
+        "aws:ResourceTag/lcf": [
+          "IF",
+          "DP",
+          "NA"
+        ]
+      }
+    }
+  }
+]
+}

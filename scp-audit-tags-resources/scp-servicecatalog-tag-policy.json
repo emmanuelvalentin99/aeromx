@@ -1,0 +1,89 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyServiceCatalogWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "servicecatalog:CreateProduct",
+                "servicecatalog:CreatePortfolio",
+                "servicecatalog:ProvisionProduct",
+                "servicecatalog:UpdateProduct",
+                "servicecatalog:UpdatePortfolio",
+				"servicecatalog:CreateApplication"
+            ],
+            "Resource": [
+                    "arn:aws:servicecatalog:*:*:/applications/*",
+                    "arn:aws:catalog:*:*:*/*"
+                ],
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyServiceCatalogWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "servicecatalog:CreateProduct",
+                "servicecatalog:CreatePortfolio",
+                "servicecatalog:ProvisionProduct",
+                "servicecatalog:UpdateProduct",
+                "servicecatalog:UpdatePortfolio",
+				"servicecatalog:CreateApplication"
+            ],
+            "Resource": [
+                    "arn:aws:servicecatalog:*:*:/applications/*",
+                    "arn:aws:catalog:*:*:*/*"
+                ],
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyServiceCatalogWithoutValidEnvironmentTag",
+            "Effect": "Deny",
+            "Action": [
+                "servicecatalog:CreateProduct",
+                "servicecatalog:CreatePortfolio",
+                "servicecatalog:ProvisionProduct",
+                "servicecatalog:UpdateProduct",
+                "servicecatalog:UpdatePortfolio",
+				"servicecatalog:CreateApplication"
+            ],
+            "Resource": [
+                    "arn:aws:servicecatalog:*:*:/applications/*",
+                    "arn:aws:catalog:*:*:*/*"
+                ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyServiceCatalogWithoutValidLCFTag",
+            "Effect": "Deny",
+            "Action": [
+                "servicecatalog:CreateProduct",
+                "servicecatalog:CreatePortfolio",
+                "servicecatalog:ProvisionProduct",
+                "servicecatalog:UpdateProduct",
+                "servicecatalog:UpdatePortfolio",
+				"servicecatalog:CreateApplication"
+            ],
+            "Resource": [
+                    "arn:aws:servicecatalog:*:*:/applications/*",
+                    "arn:aws:catalog:*:*:*/*"
+                ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

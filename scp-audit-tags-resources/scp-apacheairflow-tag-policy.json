@@ -1,12 +1,14 @@
-//No  fumciona con resource y no viene documentado request
+//Funciona perfectamente con requesttag
 {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "DenyDAXWithoutTagEnvironment",
+            "Sid": "DenyMWAAWithoutTagEnvironment",
             "Effect": "Deny",
-            "Action": "dax:CreateCluster",
-            "Resource": "arn:aws:dax:*:*:cache/*",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": "arn:aws:airflow:*:*:environment/*",
             "Condition": {
                 "Null": {
                     "aws:RequestTag/Environment": "true"
@@ -14,11 +16,12 @@
             }
         },
         {
-            "Sid": "DenyDAXWithoutTagLCF",
+            "Sid": "DenyMWAAWithoutTagLCF",
             "Effect": "Deny",
-            "Action": "dax:CreateCluster",
-            "Resource": "arn:aws:dax:*:*:cache/*",
-            
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": "arn:aws:airflow:*:*:environment/*",
             "Condition": {
                 "Null": {
                     "aws:RequestTag/lcf": "true"
@@ -26,10 +29,12 @@
             }
         },
         {
-            "Sid": "DenyDAXWithInvalidEnvironment",
+            "Sid": "DenyMWAAWithoutValidEnvironmentTag",
             "Effect": "Deny",
-            "Action": "dax:CreateCluster",
-            "Resource": "arn:aws:dax:*:*:cache/*",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": "arn:aws:airflow:*:*:environment/*",
             "Condition": {
                 "StringNotEqualsIfExists": {
                     "aws:RequestTag/Environment": ["dev", "qa", "prod"]
@@ -37,10 +42,12 @@
             }
         },
         {
-            "Sid": "DenyDAXWithInvalidLCF",
+            "Sid": "DenyMWAAWithoutValidLCFTag",
             "Effect": "Deny",
-            "Action": "dax:CreateCluster",
-            "Resource": "arn:aws:dax:*:*:cache/*",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": "arn:aws:airflow:*:*:environment/*",
             "Condition": {
                 "StringNotEqualsIfExists": {
                     "aws:RequestTag/lcf": ["IF", "DP", "NA"]

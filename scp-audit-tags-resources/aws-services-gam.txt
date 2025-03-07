@@ -7,17 +7,19 @@ Secrets Manager >> Request y Resource Tag / Si funciono correctamente
 SNS >> Request y Resource Tag / Si funciono correctamente
 StepFuctions >> Resource Tag / Si funciono con resource tag
 DynamoDB >> Resource Tag / Si funciono con resource tag
+EMR >> Resource Tag / Si funciono con run job flow
+MWAA(apacheairflow) >> Request Tag / Si funciono con request tag
+
 Athena << No key condition / No permite ninguna key condition por ende no se puede utilizar
 Reshift << Resource Tag / No se pueden crear tags al inicio entonces no es posible
 Elastic Container Registry << Resource Tag / No permite colocar tags al inicio no es posible 
 Cloud Control API << No key condition / No permite ninguna key condition por ende no se puede utilizar
-DynamoDB DAX
-EMR
-EventBridge Scheduler
-Lake Formation
-MWAA
-OpenSearch Service
-Pinpoint Email
+DynamoDB DAX << No key condition / No funciono por que no permite ninguna key condition
+EventBridge Scheduler << No key condition /  No permite colocar tags al inicio no es posible 
+Lake Formation << No key condition /  No permite colocar tags al inicio no es posible 
+OpenSearch Service << No key condition /  No permite colocar tags al inicio no es posible 
+Pinpoint Email << No key condition /  No permite colocar tags al inicio no es posible 
+
 Service Catalog
 SES
 RDS << Resource Tag / No tiene un recurso que sirva para bloquear

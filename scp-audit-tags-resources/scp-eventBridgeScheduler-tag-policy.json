@@ -1,0 +1,66 @@
+//No se puede taggear al inicio de la ceracion
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenySchedulerWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "scheduler:CreateSchedule",
+                "scheduler:UpdateSchedule",
+                "scheduler:TagResource"
+            ],
+            "Resource": "arn:aws:scheduler:*:*:schedule/*",
+            "Condition": { 
+                "Null": { 
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenySchedulerWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "scheduler:CreateSchedule",
+                "scheduler:UpdateSchedule",
+                "scheduler:TagResource"
+            ],
+            "Resource": "arn:aws:scheduler:*:*:schedule/*",
+            "Condition": { 
+                "Null": { 
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenySchedulerWithoutValidEnvironmentTag",
+            "Effect": "Deny",
+            "Action": [
+                "scheduler:CreateSchedule",
+                "scheduler:UpdateSchedule",
+                "scheduler:TagResource"
+            ],
+            "Resource": "arn:aws:scheduler:*:*:schedule/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenySchedulerWithoutValidLcfTag",
+            "Effect": "Deny",
+            "Action": [
+                "scheduler:CreateSchedule",
+                "scheduler:UpdateSchedule",
+                "scheduler:TagResource"
+            ],
+            "Resource": "arn:aws:scheduler:*:*:schedule/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

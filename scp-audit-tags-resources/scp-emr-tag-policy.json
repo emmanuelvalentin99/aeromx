@@ -1,0 +1,83 @@
+//Funciono con RunJobflow
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyEMRWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "elasticmapreduce:RunJobFlow",
+				"emr-containers:CreateVirtualCluster"
+            ],
+            "Resource": [
+                "arn:aws:elasticmapreduce:*:*:cluster/*",
+                "arn:aws:elasticmapreduce:*:*:instanceFleet/*",
+                "arn:aws:elasticmapreduce:*:*:instanceGroup/*",
+                "arn:aws:emr-containers:*:*:virtualCluster/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyEMRWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "elasticmapreduce:RunJobFlow",
+				"emr-containers:CreateVirtualCluster"
+            ],
+            "Resource": [
+                "arn:aws:elasticmapreduce:*:*:cluster/*",
+                "arn:aws:elasticmapreduce:*:*:instanceFleet/*",
+                "arn:aws:elasticmapreduce:*:*:instanceGroup/*",
+                "arn:aws:emr-containers:*:*:virtualCluster/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyEMRWithInvalidEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "elasticmapreduce:RunJobFlow",
+				"emr-containers:CreateVirtualCluster"
+            ],
+            "Resource": [
+                "arn:aws:elasticmapreduce:*:*:cluster/*",
+                "arn:aws:elasticmapreduce:*:*:instanceFleet/*",
+                "arn:aws:elasticmapreduce:*:*:instanceGroup/*",
+                "arn:aws:emr-containers:*:*:virtualCluster/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyEMRWithInvalidLCF",
+            "Effect": "Deny",
+            "Action": [
+                "elasticmapreduce:RunJobFlow",
+				"emr-containers:CreateVirtualCluster"
+            ],
+            "Resource": [
+                "arn:aws:elasticmapreduce:*:*:cluster/*",
+                "arn:aws:elasticmapreduce:*:*:instanceFleet/*",
+                "arn:aws:elasticmapreduce:*:*:instanceGroup/*",
+                "arn:aws:emr-containers:*:*:virtualCluster/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}

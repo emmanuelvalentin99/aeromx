@@ -1,0 +1,58 @@
+//No permite añadir los tags al inicio de la creacion
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyOpenSearchWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "es:CreateDomain"
+            ],
+            "Resource": "arn:aws:es:*:*:domain/*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyOpenSearchWithoutValidEnvironmentTag",
+            "Effect": "Deny",
+            "Action": [
+                "es:CreateDomain"
+            ],
+            "Resource": "arn:aws:es:*:*:domain/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyOpenSearchWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "es:CreateDomain"
+            ],
+            "Resource": "arn:aws:es:*:*:domain/*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyOpenSearchWithoutValidLCFTag",
+            "Effect": "Deny",
+            "Action": [
+                "es:CreateDomain"
+            ],
+            "Resource": "arn:aws:es:*:*:domain/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}
