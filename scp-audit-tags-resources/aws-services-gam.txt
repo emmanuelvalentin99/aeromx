@@ -9,6 +9,7 @@ StepFuctions >> Resource Tag / Si funciono con resource tag
 DynamoDB >> Resource Tag / Si funciono con resource tag
 EMR >> Resource Tag / Si funciono con run job flow
 MWAA(apacheairflow) >> Request Tag / Si funciono con request tag
+Service Catalog >> Resrouce Tag / Si funciono pero con productos y portfolios
 
 Athena << No key condition / No permite ninguna key condition por ende no se puede utilizar
 Reshift << Resource Tag / No se pueden crear tags al inicio entonces no es posible
@@ -18,10 +19,10 @@ DynamoDB DAX << No key condition / No funciono por que no permite ninguna key co
 EventBridge Scheduler << No key condition /  No permite colocar tags al inicio no es posible 
 Lake Formation << No key condition /  No permite colocar tags al inicio no es posible 
 OpenSearch Service << No key condition /  No permite colocar tags al inicio no es posible 
-Pinpoint Email << No key condition /  No permite colocar tags al inicio no es posible 
+Pinpoint Email << No key condition /  No permite colocar tags al inicio no es posible
+S3 << Resource Tag / No tiene un recurso que sirva para bloquear
 
-Service Catalog
+
 SES
 RDS << Resource Tag / No tiene un recurso que sirva para bloquear
-S3 << Resource Tag / No tiene un recurso que sirva para bloquear
 Glue << Resource Tag / No solo sirvio con los registrys las db no tiene para colocar tags al inicio

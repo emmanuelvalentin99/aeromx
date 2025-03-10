@@ -1,3 +1,4 @@
+//Si funciono con productos y con porfolios pero no con apps
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -9,11 +10,9 @@
                 "servicecatalog:CreatePortfolio",
                 "servicecatalog:ProvisionProduct",
                 "servicecatalog:UpdateProduct",
-                "servicecatalog:UpdatePortfolio",
-				"servicecatalog:CreateApplication"
+                "servicecatalog:UpdatePortfolio"
             ],
             "Resource": [
-                    "arn:aws:servicecatalog:*:*:/applications/*",
                     "arn:aws:catalog:*:*:*/*"
                 ],
             "Condition": {
@@ -30,11 +29,9 @@
                 "servicecatalog:CreatePortfolio",
                 "servicecatalog:ProvisionProduct",
                 "servicecatalog:UpdateProduct",
-                "servicecatalog:UpdatePortfolio",
-				"servicecatalog:CreateApplication"
+                "servicecatalog:UpdatePortfolio"
             ],
             "Resource": [
-                    "arn:aws:servicecatalog:*:*:/applications/*",
                     "arn:aws:catalog:*:*:*/*"
                 ],
             "Condition": {
@@ -51,11 +48,9 @@
                 "servicecatalog:CreatePortfolio",
                 "servicecatalog:ProvisionProduct",
                 "servicecatalog:UpdateProduct",
-                "servicecatalog:UpdatePortfolio",
-				"servicecatalog:CreateApplication"
+                "servicecatalog:UpdatePortfolio"
             ],
             "Resource": [
-                    "arn:aws:servicecatalog:*:*:/applications/*",
                     "arn:aws:catalog:*:*:*/*"
                 ],
             "Condition": {
@@ -72,11 +67,9 @@
                 "servicecatalog:CreatePortfolio",
                 "servicecatalog:ProvisionProduct",
                 "servicecatalog:UpdateProduct",
-                "servicecatalog:UpdatePortfolio",
-				"servicecatalog:CreateApplication"
+                "servicecatalog:UpdatePortfolio"
             ],
             "Resource": [
-                    "arn:aws:servicecatalog:*:*:/applications/*",
                     "arn:aws:catalog:*:*:*/*"
                 ],
             "Condition": {

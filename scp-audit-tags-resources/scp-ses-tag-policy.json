@@ -1,0 +1,81 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenySESWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "ses:CreateConfigurationSet",
+                "ses:CreateReceiptRuleSet",
+                "ses:CreateTemplate",
+                "ses:CreateEmailIdentity",
+                "ses:CreateContactList",
+                "ses:UpdateTemplate",
+                "ses:UpdateContactList"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenySESWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "ses:CreateConfigurationSet",
+                "ses:CreateReceiptRuleSet",
+                "ses:CreateTemplate",
+                "ses:CreateEmailIdentity",
+                "ses:CreateContactList",
+                "ses:UpdateTemplate",
+                "ses:UpdateContactList"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenySESWithoutValidEnvironmentTag",
+            "Effect": "Deny",
+            "Action": [
+                "ses:CreateConfigurationSet",
+                "ses:CreateReceiptRuleSet",
+                "ses:CreateTemplate",
+                "ses:CreateEmailIdentity",
+                "ses:CreateContactList",
+                "ses:UpdateTemplate",
+                "ses:UpdateContactList"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenySESWithoutValidLCFTag",
+            "Effect": "Deny",
+            "Action": [
+                "ses:CreateConfigurationSet",
+                "ses:CreateReceiptRuleSet",
+                "ses:CreateTemplate",
+                "ses:CreateEmailIdentity",
+                "ses:CreateContactList",
+                "ses:UpdateTemplate",
+                "ses:UpdateContactList"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+                }
+            }
+        }
+    ]
+}
