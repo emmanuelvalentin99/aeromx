@@ -1,3 +1,4 @@
+//Funciono con configuration set e identidad pero no en las demas opciones
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -6,14 +7,12 @@
             "Effect": "Deny",
             "Action": [
                 "ses:CreateConfigurationSet",
-                "ses:CreateReceiptRuleSet",
-                "ses:CreateTemplate",
-                "ses:CreateEmailIdentity",
-                "ses:CreateContactList",
-                "ses:UpdateTemplate",
-                "ses:UpdateContactList"
+                "ses:CreateEmailIdentity"
             ],
-            "Resource": "*",
+            "Resource": [
+                "arn:aws:ses:*:*:configuration-set/*",
+                "arn:aws:ses:*:*:identity/*"
+            ],
             "Condition": {
                 "Null": {
                     "aws:ResourceTag/Environment": "true"
@@ -25,14 +24,12 @@
             "Effect": "Deny",
             "Action": [
                 "ses:CreateConfigurationSet",
-                "ses:CreateReceiptRuleSet",
-                "ses:CreateTemplate",
-                "ses:CreateEmailIdentity",
-                "ses:CreateContactList",
-                "ses:UpdateTemplate",
-                "ses:UpdateContactList"
+                "ses:CreateEmailIdentity"
             ],
-            "Resource": "*",
+            "Resource": [
+                "arn:aws:ses:*:*:configuration-set/*",
+                "arn:aws:ses:*:*:identity/*"
+            ],
             "Condition": {
                 "Null": {
                     "aws:ResourceTag/lcf": "true"
@@ -44,14 +41,12 @@
             "Effect": "Deny",
             "Action": [
                 "ses:CreateConfigurationSet",
-                "ses:CreateReceiptRuleSet",
-                "ses:CreateTemplate",
-                "ses:CreateEmailIdentity",
-                "ses:CreateContactList",
-                "ses:UpdateTemplate",
-                "ses:UpdateContactList"
+                "ses:CreateEmailIdentity"
             ],
-            "Resource": "*",
+            "Resource": [
+                "arn:aws:ses:*:*:configuration-set/*",
+                "arn:aws:ses:*:*:identity/*"
+            ],
             "Condition": {
                 "StringNotEqualsIfExists": {
                     "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
@@ -63,14 +58,12 @@
             "Effect": "Deny",
             "Action": [
                 "ses:CreateConfigurationSet",
-                "ses:CreateReceiptRuleSet",
-                "ses:CreateTemplate",
-                "ses:CreateEmailIdentity",
-                "ses:CreateContactList",
-                "ses:UpdateTemplate",
-                "ses:UpdateContactList"
+                "ses:CreateEmailIdentity"
             ],
-            "Resource": "*",
+            "Resource": [
+                "arn:aws:ses:*:*:configuration-set/*",
+                "arn:aws:ses:*:*:identity/*"
+            ],
             "Condition": {
                 "StringNotEqualsIfExists": {
                     "aws:ResourceTag/lcf": ["IF", "DP", "NA"]

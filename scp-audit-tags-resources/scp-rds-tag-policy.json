@@ -1,87 +1,74 @@
-//No Funciona para RDS requestTag y no vale la pena con resource
+//Si funciono correctamente pero con el recurso de db cluster que es el que se taggea
 {
-    "Version": "2012-10-17",
-    "Statement": [
+  "Version": "2012-10-17",
+  "Statement": [
       {
-        "Sid": "DenyRDSWithoutTagEnvironment",
-        "Effect": "Deny",
-        "Action": [
-          "rds:CreateDBInstance", 
-          "rds:CreateDBCluster", 
-          "rds:CreateDBSnapshot",
-          "rds:StartDBInstance",
-          "rds:StopDBInstance"
-        ],
-        "Resource": [
-          "*"
-        ],
-        "Condition": { 
-          "Null": { 
-            "aws:RequestTag/Environment": "true",
-            "aws:ResourceTag/Environment": "true"
+          "Sid": "DenyRDSWithoutTagEnvironment",
+          "Effect": "Deny",
+          "Action": [
+              "rds:CreateDBSnapshot",
+              "rds:CreateDBSnapshot",
+				"rds:CreateDBCluster"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:cluster:*"
+          ],
+          "Condition": {
+              "Null": {
+                  "aws:ResourceTag/Environment": "true"
+              }
           }
-        }
       },
       {
-        "Sid": "DenyRDSWithoutTagArea",
-        "Effect": "Deny",
-        "Action": [
-          "rds:CreateDBInstance", 
-          "rds:CreateDBCluster", 
-          "rds:CreateDBSnapshot",
-          "rds:StartDBInstance",
-          "rds:StopDBInstance"
-        ],
-        "Resource": [
-          "*"
-        ],
-        "Condition": { 
-          "Null": { 
-            "aws:RequestTag/lcf": "true",
-            "aws:ResourceTag/lcf": "true"
+          "Sid": "DenyRDSWithoutTagLCF",
+          "Effect": "Deny",
+          "Action": [
+              "rds:CreateDBSnapshot",
+              "rds:CreateDBSnapshot",
+				"rds:CreateDBCluster"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:cluster:*"
+          ],
+          "Condition": {
+              "Null": {
+                  "aws:ResourceTag/lcf": "true"
+              }
           }
-        }
       },
       {
-        "Sid": "DenyRDSWithoutTagVertical",
-        "Effect": "Deny",
-        "Action": [
-            "rds:CreateDBInstance", 
-            "rds:CreateDBCluster", 
-            "rds:CreateDBSnapshot",
-            "rds:StartDBInstance",
-            "rds:StopDBInstance"
-        ],
-        "Resource": [
-          "*"
-        ],
-        "Condition": { 
-          "StringNotEqualsIfExists": {
-            "aws:RequestTag/Environment": ["dev", "qa", "prod"],
-            "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+          "Sid": "DenyRDSWithoutValidEnvironmentTag",
+          "Effect": "Deny",
+          "Action": [
+              "rds:CreateDBSnapshot",
+              "rds:CreateDBSnapshot",
+				"rds:CreateDBCluster"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:cluster:*"
+          ],
+          "Condition": {
+              "StringNotEqualsIfExists": {
+                  "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
+              }
           }
-        }
       },
       {
-        "Sid": "DenyRDSWithoutTagProjectName",
-        "Effect": "Deny",
-        "Action": [
-          "rds:CreateDBInstance", 
-          "rds:CreateDBCluster", 
-          "rds:CreateDBSnapshot",
-          "rds:StartDBInstance",
-          "rds:StopDBInstance"
-        ],
-        "Resource": [
-          "*"
-        ],
-        "Condition": { 
-          "StringNotEqualsIfExists": {
-            "aws:RequestTag/lcf": ["IF", "DP", "NA"],
-            "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+          "Sid": "DenyRDSWithoutValidLCFTag",
+          "Effect": "Deny",
+          "Action": [
+              "rds:CreateDBSnapshot",
+              "rds:CreateDBSnapshot",
+				"rds:CreateDBCluster"
+          ],
+          "Resource": [
+            "arn:aws:rds:*:*:cluster:*"
+          ],
+          "Condition": {
+              "StringNotEqualsIfExists": {
+                  "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
+              }
           }
-        }
       }
-    ]
-  }
-  
+  ]
+}

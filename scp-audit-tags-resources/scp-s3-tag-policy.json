@@ -17,7 +17,7 @@
           "s3:PutBucketWebsite",
           "s3:PutBucketCors"
         ],
-        "Resource": "arn:*:s3:::*",
+        "Resource": "arn:aws:s3:::*",
         "Condition": { 
           "Null": { 
             "aws:ResourceTag/Environment": "true"
@@ -38,7 +38,7 @@
           "s3:PutBucketWebsite",
           "s3:PutBucketCors"
         ],
-        "Resource": "arn:*:s3:::*",
+        "Resource": "arn:aws:s3:::*",
         "Condition": { 
           "Null": { 
             "aws:ResourceTag/lcf": "true"
@@ -59,7 +59,7 @@
           "s3:PutBucketWebsite",
           "s3:PutBucketCors"
         ],
-        "Resource": "arn:*:s3:::*",
+        "Resource": "arn:aws:s3:::*",
         "Condition": { 
           "StringNotEqualsIfExists": {
             "aws:ResourceTag/Environment": ["dev", "qa", "prod"]
@@ -80,7 +80,7 @@
           "s3:PutBucketWebsite",
           "s3:PutBucketCors"
         ],
-        "Resource": "arn:*:s3:::*",
+        "Resource": "arn:aws:s3:::*",
         "Condition": { 
           "StringNotEqualsIfExists": {
             "aws:ResourceTag/lcf": ["IF", "DP", "NA"]
