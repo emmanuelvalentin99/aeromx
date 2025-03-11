@@ -16,19 +16,6 @@
             }
         },
         {
-            "Sid": "DenyMWAAWithoutTagLCF",
-            "Effect": "Deny",
-            "Action": [
-                "airflow:CreateEnvironment"
-            ],
-            "Resource": "arn:aws:airflow:*:*:environment/*",
-            "Condition": {
-                "Null": {
-                    "aws:RequestTag/lcf": "true"
-                }
-            }
-        },
-        {
             "Sid": "DenyMWAAWithoutValidEnvironmentTag",
             "Effect": "Deny",
             "Action": [
@@ -38,6 +25,19 @@
             "Condition": {
                 "StringNotEqualsIfExists": {
                     "aws:RequestTag/Environment": ["dev", "qa", "prod"]
+                }
+            }
+        },
+        {
+            "Sid": "DenyMWAAWithoutTagLCF",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": "arn:aws:airflow:*:*:environment/*",
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/lcf": "true"
                 }
             }
         },

@@ -1,0 +1,418 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyWithoutTagArea",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Area": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidAreaTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Area": [
+                        "Cargo",
+                        "Mantenimiento",
+                        "Operaciones",
+                        "Aeropuertos",
+                        "Seguridad-aerea",
+                        "Revenie-accounting",
+                        "Call-center",
+                        "DataAnalytics",
+                        "Estrategia-de-ingresos",
+                        "Pricing",
+                        "Svoc",
+                        "Voc",
+                        "Revenue-management",
+                        "Marketing"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagEnvironment",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Environment": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidEnvironmentTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Environment": [
+                        "dev",
+                        "qa",
+                        "prod"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagVertical",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Vertical": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidVerticalTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Vertical": [
+                        "comm",
+                        "cust",
+                        "corp",
+                        "cha-beth",
+                        "svoe",
+                        "oper",
+                        "ia",
+                        "de"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagmap-migrated",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/map-migrated": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidmap-migratedTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/map-migrated": [
+                        "d-server-03cd3bbblu0msp"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagAmbiente",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Ambiente": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidAmbienteTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Ambiente": [
+                        "PD",
+                        "Q",
+                        "DE"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagAreaResponsable",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/AreaResponsable": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidAreaResponsableTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/AreaResponsable": [
+                        "DA-AI"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagCentroDeCosto",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/CentroDeCosto": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidCentroDeCostoTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/CentroDeCosto": [
+                        "121001"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagDuenoDeLaCuenta",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/DuenoDeLaCuenta": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidDuenoDeLaCuentaTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/DuenoDeLaCuenta": [
+                        "amsoportedatalake@aeromexico.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagProyecto",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Proyecto": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidProyectoTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Proyecto": [
+                        "Datalake"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagAplicacion",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/Aplicacion": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidAplicacionTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/Aplicacion": [
+                        "Datalake"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTagImpactoANegocio",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/ImpactoANegocio": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidImpactoANegocioTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/ImpactoANegocio": [
+                        "Tier1",
+                        "Tier2",
+                        "Tier3",
+                        "Tier4"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutTaglcf",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "Null": {
+                    "aws:RequestTag/lcf": "true"
+                }
+            }
+        },
+        {
+            "Sid": "DenyWithoutValidlcfTag",
+            "Effect": "Deny",
+            "Action": [
+                "airflow:CreateEnvironment"
+            ],
+            "Resource": [
+                "arn:aws:airflow:*:*:environment/*"
+            ],
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/lcf": [
+                        "IF",
+                        "DP",
+                        "NA"
+                    ]
+                }
+            }
+        }
+    ]
+}
