@@ -1,5 +1,5 @@
 MWAA(apacheairflow) >> Request Tag / Si funciono con request tag
-AppFlow >> Resource Tag / Si funciono correctamente
+/-/- AppFlow >> Resource Tag / Si funciono correctamente
 ** Athena << No key condition / No permite ninguna key condition por ende no se puede utilizar
 ** Cloud Control API << No key condition / No permite ninguna key condition por ende no se puede utilizar
 DynamoDB >> Resource Tag / Si funciono con resource tag
@@ -12,14 +12,14 @@ EventBridge >> Resource Tag / Si funciona bien con evnt bus y con rules
 ** Glue << Resource Tag / No solo sirvio con los registrys las db no tiene para colocar tags al inicio
 KMS >> Resource Tag / Si se puede bloquear desde la creación con Putpolicy
 ** Lake Formation << No key condition /  No permite colocar tags al inicio no es posible 
-Lambda >> Resource Tag / Si tiene algunos recursos para bloquear y si funciona en la creación con resource
+/-/- Lambda >> Resource Tag / Si tiene algunos recursos para bloquear y si funciona en la creación con resource
 ** OpenSearch Service << No key condition /  No permite colocar tags al inicio no es posible 
 ** Pinpoint Email << No key condition /  No permite colocar tags al inicio no es posible
-RDS >> Resrouce Tag / Si funciono pero con configuraciones especificas y el recurso de dbcluster
+RDS >> Resource Tag / Si funciono pero con configuraciones especificas y el recurso de dbcluster
 ** Reshift << Resource Tag / No se pueden crear tags al inicio entonces no es posible
 ** S3 << Resource Tag / No tiene un recurso que sirva para bloquear
 Secrets Manager >> Request y Resource Tag / Si funciono correctamente
 Service Catalog >> Resrouce Tag / Si funciono pero con productos y portfolios
-SES >> Resrouce Tag / Si funciono pero con identidades y configuration set
-SNS >> Request y Resource Tag / Si funciono correctamente
+SES >> Resource Tag / Si funciono pero con identidades y configuration set
+SNS >> Request Tag / Si funciono correctamente
 StepFuctions >> Resource Tag / Si funciono con resource tag

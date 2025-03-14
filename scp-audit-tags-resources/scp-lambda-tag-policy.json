@@ -6,14 +6,7 @@
         "Sid": "DenyLambdaWithoutTagEnvironment",
         "Effect": "Deny",
         "Action": [
-           "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:InvokeFunction",
             "lambda:CreateFunction",
-            "lambda:TagResource",
-            "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:PublishVersion",
             "lambda:CreateAlias"
         ],
         "Resource": "arn:aws:lambda:*:*:function:*",
@@ -27,14 +20,7 @@
         "Sid": "DenyLambdaWithoutTagLCF",
         "Effect": "Deny",
         "Action": [
-            "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:InvokeFunction",
             "lambda:CreateFunction",
-            "lambda:TagResource",
-            "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:PublishVersion",
             "lambda:CreateAlias"
         ],
         "Resource": "arn:aws:lambda:*:*:function:*",
@@ -48,14 +34,7 @@
         "Sid": "DenyLambdaWithInvalidEnvironment",
         "Effect": "Deny",
         "Action": [
-            "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:InvokeFunction",
             "lambda:CreateFunction",
-            "lambda:TagResource",
-            "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:PublishVersion",
             "lambda:CreateAlias"
         ],
         "Resource": "arn:aws:lambda:*:*:function:*",
@@ -69,14 +48,7 @@
         "Sid": "DenyLambdaWithInvalidLCF",
         "Effect": "Deny",
         "Action": [
-            "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:InvokeFunction",
             "lambda:CreateFunction",
-            "lambda:TagResource",
-            "lambda:UpdateFunctionConfiguration",
-            "lambda:UpdateFunctionCode",
-            "lambda:PublishVersion",
             "lambda:CreateAlias"
         ],
         "Resource": "arn:aws:lambda:*:*:function:*",

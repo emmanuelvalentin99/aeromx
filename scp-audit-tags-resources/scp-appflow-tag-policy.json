@@ -7,9 +7,7 @@
             "Effect": "Deny",
             "Action": [
                 "appflow:UpdateFlow",
-                "appflow:DeleteFlow",
                 "appflow:StartFlow",
-                "appflow:StopFlow",
                 "appflow:CreateFlow"
             ],
             "Resource": "arn:aws:appflow:*:*:flow/*",
@@ -24,9 +22,7 @@
             "Effect": "Deny",
             "Action": [
                 "appflow:UpdateFlow",
-                "appflow:DeleteFlow",
                 "appflow:StartFlow",
-                "appflow:StopFlow",
                 "appflow:CreateFlow"
             ],
             "Resource": "arn:aws:appflow:*:*:flow/*",
@@ -41,9 +37,7 @@
             "Effect": "Deny",
             "Action": [
                 "appflow:UpdateFlow",
-                "appflow:DeleteFlow",
                 "appflow:StartFlow",
-                "appflow:StopFlow",
                 "appflow:CreateFlow"
             ],
             "Resource": "arn:aws:appflow:*:*:flow/*",
@@ -58,9 +52,7 @@
             "Effect": "Deny",
             "Action": [
                 "appflow:UpdateFlow",
-                "appflow:DeleteFlow",
                 "appflow:StartFlow",
-                "appflow:StopFlow",
                 "appflow:CreateFlow"
             ],
             "Resource": "arn:aws:appflow:*:*:flow/*",
