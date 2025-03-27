@@ -4,7 +4,7 @@ MWAA(apacheairflow) >> Request Tag / Si funciono con request tag
 ** Cloud Control API << No key condition / No permite ninguna key condition por ende no se puede utilizar
 DynamoDB >> Resource Tag / Si funciono con resource tag
 ** DynamoDB DAX << No key condition / No funciono por que no permite ninguna key condition
-EC2 >> Request y Resource Tag / Si Funciona perfectamente.
+EC2 >> Request Tag / Si Funciona perfectamente.
 ** Elastic Container Registry << Resource Tag / No permite colocar tags al inicio no es posible 
 EMR >> Resource Tag / Si funciono con run job flow
 EventBridge >> Resource Tag / Si funciona bien con evnt bus y con rules

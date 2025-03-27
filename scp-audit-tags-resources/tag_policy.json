@@ -47,7 +47,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -87,7 +88,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -132,7 +134,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -170,7 +173,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -210,7 +214,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -248,7 +253,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -286,7 +292,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -324,7 +331,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -362,7 +370,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -400,7 +409,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -441,7 +451,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     },
@@ -481,7 +492,8 @@
           "ec2:volume",
           "redshift:*",
           "redshift-serverless:namespace",
-          "redshift-serverless:workgroup"
+          "redshift-serverless:workgroup",
+          "s3:bucket"
         ]
       }
     }

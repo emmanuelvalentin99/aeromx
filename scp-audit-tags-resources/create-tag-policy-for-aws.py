@@ -80,7 +80,8 @@ enforce_for = ["ec2:capacity-reservation",
                     "ec2:volume",
                     "redshift:*",
                     "redshift-serverless:namespace",
-                    "redshift-serverless:workgroup"] # Si pones "*", ignorará la lista de servicios
+                    "redshift-serverless:workgroup",
+                    "s3:bucket"] # Si pones "*", ignorará la lista de servicios
 #enforce_for = ["athena:*",
 #                    "dynamodb:*",
 #                    "ecr:repository",

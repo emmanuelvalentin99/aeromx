@@ -28,7 +28,7 @@ def generate_scp(actions, resources, tags, tag_type="RequestTag"):
             "Action": actions,
             "Resource": resources,
             "Condition": {
-                "StringNotEqualsIfExists": {
+                "StringNotLikeIfExists": {
                     f"aws:{tag_type}/{tag}": valid_values
                 }
             }
@@ -48,24 +48,26 @@ def generate_scp(actions, resources, tags, tag_type="RequestTag"):
 actions = [
     "lambda:CreateFunction",
     "lambda:CreateAlias",
-    "sns:CreateTopic",
-    "appflow:CreateFlow"
+    "ec2:RunInstances", 
+    "ec2:CreateSnapshot",
+    "ec2:StartInstances",
+    "states:CreateStateMachine",
+    "events:CreateEventBus",
 ]
 resources = [
-    "arn:aws:appflow:*:*:flow/*",
     "arn:aws:lambda:*:*:function:*",
-    "arn:aws:sns:*:*:*"
+    "arn:aws:ec2:*:*:instance/*",
+    "arn:aws:ec2:*:*:snapshot/*",
+    "arn:aws:states:*:*:stateMachine:*",
+    "arn:aws:events:*:*:event-bus/*"
     ]
 tags = {
-    "Area": ["Cargo","Mantenimiento","Operaciones","Aeropuertos","Seguridad-aerea","Revenie-accounting","Call-center","DataAnalytics","Estrategia-de-ingresos","Pricing","Svoc","Voc","Revenue-management","Marketing"],
-    "Environment": ["dev","qa","prod"],
-    "Vertical": ["comm","cust","corp","cha-beth","svoe","oper","ia","de"],
-    "map-migrated": ["d-server-03cd3bbblu0msp"],
-    "Ambiente": ["PD","Q","DE"],
-    "AreaResponsable": ["DA-AI"]
+"folio": ["comm-*","cust-*","corp-*","cha-beh-*","svoe-*","oper-*","ia-*","de-*"],
+"NombreProyecto": ["dlk-comm-*","dlk-cust-*","dlk-corp-*","dlk-cha-beh-*","dlk-svoe-*","dlk-oper-*","dlk-ia-*","dlk-de-*"],
+"Repositorio": ["gam-comm-*","gam-cust-*","gam-corp-*","gam-cha-beh-*","gam-svoe-*","gam-oper-*","gam-ia-*","gam-de-*"]
 }
 
-tag_type = "RequestTag"  # Cambia a "ResourceTag" si lo necesitas
+tag_type = "RequestTag"  # Cambia a "ResourceTag o RequestTag" si lo necesitas
 
 policy_json_pretty, policy_json_compact = generate_scp(actions, resources, tags, tag_type)
 

@@ -25,3 +25,22 @@ lcf: [IF,DP,NA]
 "Aplicacion": ["Datalake"],
 "ImpactoANegocio": ["Tier1","Tier2","Tier3","Tier4"],
 "lcf": ["IF","DP","NA"]
+
+##Nuevas etiquetas,
+##"NombreProyecto": ["dlk-comm-*","dlk-cust-*","dlk-corp-*","dlk-cha-beh-*","dlk-svoe-*","dlk-oper-*","dlk-ia-*","dlk-de-*"],
+##"Repositorio": ["gam-comm-*","gam-cust-*","gam-corp-*","gam-cha-beh-*","gam-svoe-*","gam-oper-*","gam-ia-*","gam-de-*"],
+"folio": ["comm-*","cust-*","corp-*","cha-beh-*","svoe-*","oper-*","ia-*","de-*"],
+"NombreProyecto": ["dlk-comm-*","dlk-cust-*","dlk-corp-*","dlk-cha-beh-*","dlk-svoe-*","dlk-oper-*","dlk-ia-*","dlk-de-*"],
+"Repositorio": ["gam-comm-*","gam-cust-*","gam-corp-*","gam-cha-beh-*","gam-svoe-*","gam-oper-*","gam-ia-*","gam-de-*"],
+"map-migrated": ["d-server-03cd3bbblu0msp"],
+"Ambiente": ["PD","Q","DE"],
+"AreaResponsable": ["DA-AI"],
+"CentroDeCosto": ["121001"],
+"DuenoDeLaCuenta": ["amsoportedatalake@aeromexico.com"],
+"Proyecto": ["Datalake"],
+"Aplicacion": ["Datalake"],
+"ImpactoANegocio": ["Tier1","Tier2","Tier3","Tier4"],
+"lcf": ["IF","DP","NA"],
+"Vertical": ["comm","cust","corp","cha-beth","svoe","oper","ia","de"]
+            
+           
